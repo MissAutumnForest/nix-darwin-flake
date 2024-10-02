@@ -69,7 +69,7 @@
         name = "autumn";
         home = "/Users/autumn";
 	packages = [
-	  pkgs.alacritty
+	  pkgs.kitty
 	  pkgs.gh
 	  pkgs.nerdfonts
 	];
