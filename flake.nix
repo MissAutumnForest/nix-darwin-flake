@@ -11,7 +11,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, nix-darwin }:
+  outputs = inputs@{ self, nixpkgs, nix-darwin, home-manager }:
   let
     configuration = { pkgs, ... }: {
       # Necessary for using flakes on this system.
@@ -30,11 +30,41 @@
 
       system = {
         defaults = {
-          dock.autohide = true;
-          dock.mru-spaces = false;
-          finder.AppleShowAllExtensions = true;
-          finder.FXPreferredViewStyle = "clmv";
-          loginwindow.LoginwindowText = "Hello Autumn!";
+	  dock = {
+	    appswitcher-all-displays = true;
+            autohide = true;
+            mru-spaces = false;
+	    show-recents = false;
+	    launchanim = true;
+	    mouse-over-hilite-stack = true;
+	    orientation = "bottom";
+	    tilesize = 48;
+
+	    persistent-apps = [
+	      "/Applications/Safari.app"
+	      "/Applications/Nix Apps/Kitty.app"
+	    ];
+	  };
+
+	  finder = {
+	    CreateDesktop = true;
+            AppleShowAllExtensions = true;
+	    AppleShowAllFiles = true;
+            FXPreferredViewStyle = "clmv";
+	    ShowPathbar = true;
+	    ShowStatusBar = true;
+	  };
+
+	  trackpad = {
+	    Clicking = true;
+	    TrackpadThreeFingerDrag = true;
+	  };
+
+	  loginwindow = {
+	    GuestEnabled = false;
+            LoginwindowText = "\"Somewhere, something incredible is waiting to be known.\" ― Carl Sagan";
+	  };
+
           screencapture.location = "~/Pictures/screenshots";
         };
         keyboard = {
@@ -60,6 +90,9 @@
         pkgs.fzf
 	pkgs.oh-my-posh
 	pkgs.zoxide
+	pkgs.ripgrep
+	pkgs.nerdfonts
+	pkgs.kitty
       ];
 
       # Create /etc/zshrc that loads the nix-darwin environment.
@@ -69,9 +102,7 @@
         name = "autumn";
         home = "/Users/autumn";
 	packages = [
-	  pkgs.kitty
 	  pkgs.gh
-	  pkgs.nerdfonts
 	];
       };
     };
