@@ -30,6 +30,23 @@
 
       system = {
         defaults = {
+	  NSGlobalDomain = {
+	    AppleInterfaceStyle = "Dark";
+	    AppleInterfaceStyleSwitchesAutomatically = false;
+	  };
+
+	  WindowManager = {
+	    GloballyEnabled = true;
+	    EnableStandardClickToShowDesktop = false;
+	  };
+
+	  menuExtraClock = {
+	    Show24Hour = true;
+	    ShowDayOfMonth = true;
+	    ShowDayOfWeek = true;
+	    ShowDate = 1;
+	  };
+
 	  dock = {
 	    appswitcher-all-displays = true;
             autohide = true;
@@ -44,6 +61,10 @@
 	      "/Applications/Safari.app"
 	      "/Applications/Nix Apps/Kitty.app"
 	    ];
+
+	    persistent-others = [
+	      "/Users/autumn"
+	    ];
 	  };
 
 	  finder = {
@@ -53,11 +74,7 @@
             FXPreferredViewStyle = "clmv";
 	    ShowPathbar = true;
 	    ShowStatusBar = true;
-	  };
-
-	  trackpad = {
-	    Clicking = true;
-	    TrackpadThreeFingerDrag = true;
+	    QuitMenuItem = true;
 	  };
 
 	  loginwindow = {
@@ -65,7 +82,20 @@
             LoginwindowText = "\"Somewhere, something incredible is waiting to be known.\" ― Carl Sagan";
 	  };
 
-          screencapture.location = "~/Pictures/screenshots";
+          screencapture = {
+	    location = "~/Pictures/screenshots";
+	    show-thumbnail = false;
+	  };
+
+	  spaces = {
+	    spans-displays = false;
+	  };
+
+	  trackpad = {
+	    Clicking = false;
+	    Dragging = false;
+	    TrackpadThreeFingerDrag = false;
+	  };
         };
         keyboard = {
           enableKeyMapping = true;
@@ -91,12 +121,19 @@
 	pkgs.oh-my-posh
 	pkgs.zoxide
 	pkgs.ripgrep
+	pkgs.bc
+	pkgs.jq
 	pkgs.nerdfonts
 	pkgs.kitty
       ];
 
       # Create /etc/zshrc that loads the nix-darwin environment.
       programs.zsh.enable = true;  # default shell on catalina
+
+      #programs.git.config = {
+      #  user.name = "Autumn Peacock";
+      #  user.email = "MissAutumnForest@gmail.com";
+      #};
 
       users.users.autumn = {
         name = "autumn";
